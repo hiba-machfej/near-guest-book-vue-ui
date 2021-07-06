@@ -35,7 +35,7 @@ export default {
   border: 0.2rem solid theme("colors.near-black");
   border-radius: 2rem;
   box-shadow: inset 1px 1px 1px 0.3rem theme("colors.near-gray");
-  width: 90vw;
+  width: 90%;
   height: 100%;
   padding: 4rem;
   /* background-color: theme("colors.near-red.DEFAULT"); */

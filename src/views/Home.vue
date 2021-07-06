@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex flex-col lg:flex-row justify-between items-center">
     <Form />
-    <img class="w-2/5" src="@/assets/hero.png" alt="hero" />
+    <img class="w-96 lg:w-2/5 my-10" src="@/assets/hero.png" alt="hero" />
   </div>
   <Messages v-if="data" :messages="data" />
 </template>

@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col justify-start">
+  <div class="flex flex-col justify-start w-full">
     <div>
-      <h1 class="text-5xl">Welcome {{ accountId }}!</h1>
-      <p class="text-xl mt-10">
+      <h1 class="text-xl lg:text-5xl">Welcome {{ accountId }}!</h1>
+      <p class="lg:text-xl mt-10">
         Sign in with
         <a href="https://near.org/" target="_blank" class="underline">NEAR</a>
         and add a message to the guest book!
@@ -32,7 +32,7 @@
         <span>Ⓝ</span>
       </div>
     </form>
-    <div class="flex items-center mt-10">
+    <div class="flex items-center mt-10 flex-col lg:flex-row">
       <div
         class="bg-near-gray m-3 p-4 w-64 rounded-xl flex flex-col justify-between"
       >
@@ -51,7 +51,7 @@
       </div>
 
       <button
-        class="bg-near-red rounded-full px-10 py-2 ml-10 mt-5"
+        class="bg-near-red rounded-full px-10 py-2 lg:ml-10 lg:mt-5"
         @click="onSubmit"
       >
         Send
@@ -89,6 +89,6 @@ export default {
 
 <style>
 h1 {
-  text-shadow: 2px 2px theme("colors.near-red.DEFAULT");
+  text-shadow: 1px 1px theme("colors.near-red.DEFAULT");
 }
 </style>

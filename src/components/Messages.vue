@@ -1,5 +1,5 @@
 <template>
-  <h2 class="text-2xl m-4">Signed Messages</h2>
+  <h2 class="w-full text-2xl m-4">Signed Messages</h2>
   <div class="flex flex-wrap">
     <div
       v-for="message in messages.messages"
