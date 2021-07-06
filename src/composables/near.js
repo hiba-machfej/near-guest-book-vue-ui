@@ -1,80 +1,27 @@
-import { ref, onMounted, watch } from "vue";
-import { getWallet } from "../services/near";
-import { Contract } from "near-api-js";
-import Big from "big.js";
+import { ref, onMounted } from "vue";
+import { getMessages, addMessage } from "../services/near";
 
-const wallet = ref();
-const accountId = ref();
-const contractId = ref("guest-book.testnet");
-const contract = ref();
-const messages = ref();
+// There is only one reactive piece of data in this application (messages)
+// this hook gets the array of messages and returns:
+// 1. the array of messages (getter)
+// 2. a function to add messages to the array of messages (setter)
+export const useMessages = () => {
+  // messages starts as an empty array
+  const messages = ref([]);
 
-export const useWallet = () => {
+  // when the component first mounts get messages from the blockchain
   onMounted(async () => {
-    wallet.value = await getWallet();
+    messages.value = await getMessages();
   });
 
-  const signIn = () => {
-    if (wallet.value.isSignedIn()) {
-      wallet.value.signOut();
-      window.location.reload();
-    } else {
-      wallet.value.requestSignIn(contractId.value);
-    }
+  // create a function that allows adding a message to the blockchain
+  const handleAddMessage = async ({ text, donation }) => {
+    await addMessage({ text, donation });
+    messages.value = await getMessages();
   };
-
-  return { wallet, signIn };
-};
-
-export const useNearAuth = () => {
-  onMounted(() => {
-    if (wallet.value?.isSignedIn())
-      accountId.value = wallet.value.getAccountId();
-  });
-
-  watch(wallet, () => {
-    accountId.value = wallet.value.getAccountId();
-  });
 
   return {
-    accountId,
+    messages,
+    addMessage: handleAddMessage,
   };
-};
-
-export const useContract = async () => {
-  contract.value = await new Contract(
-    wallet.value.account(),
-    contractId.value,
-    {
-      viewMethods: ["getMessages"],
-      changeMethods: ["addMessage"],
-      sender: accountId.value,
-    }
-  );
-
-  messages.value = await contract.value.getMessages();
-
-  return { messages };
-};
-
-export const addMessage = (message, donation = 0) => {
-  const BOATLOAD_OF_GAS = Big(3)
-    .times(10 ** 13)
-    .toFixed();
-
-  contract.value
-    .addMessage(
-      { text: message.value },
-      BOATLOAD_OF_GAS,
-      Big(donation.value || "0")
-        .times(10 ** 24)
-        .toFixed()
-    )
-    .then(async () => {
-      messages.value = await contract.value.getMessages();
-      message.value = "";
-      donation.value = "";
-    });
-
-  return { messages };
 };

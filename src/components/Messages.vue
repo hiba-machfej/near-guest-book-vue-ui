@@ -2,7 +2,7 @@
   <h2 class="w-full text-2xl m-4">Signed Messages</h2>
   <div class="flex flex-wrap">
     <div
-      v-for="message in messages.messages"
+      v-for="message in messages"
       :key="message"
       class="bg-near-gray m-3 p-4 w-64 rounded-xl flex flex-col justify-between"
     >
@@ -24,6 +24,7 @@
 
 <script>
 import { BadgeCheckIcon } from "@heroicons/vue/outline";
+
 export default {
   props: {
     messages: {

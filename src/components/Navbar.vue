@@ -17,19 +17,19 @@
 </template>
 
 <script>
-import { useNearAuth, useWallet } from "@/composables/near";
+import { wallet, CONTRACT_ID } from "@/services/near";
 
 export default {
-  async setup() {
-    const { signIn } = useWallet();
-    const { accountId } = useNearAuth();
+  setup() {
+    const accountId = wallet.getAccountId();
 
     return {
-      signIn,
       accountId,
-    };
-  },
-};
+      signIn: () => wallet.requestSignIn(CONTRACT_ID)
+    }
+  }
+}
+
 </script>
 
 <style></style>

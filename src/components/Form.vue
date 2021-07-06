@@ -52,7 +52,7 @@
 
       <button
         class="bg-near-red rounded-full px-10 py-2 lg:ml-10 lg:mt-5"
-        @click="onSubmit"
+        @click="handleSubmit"
       >
         Send
       </button>
@@ -63,25 +63,32 @@
 <script>
 import { ref } from "vue";
 import { BadgeCheckIcon } from "@heroicons/vue/outline";
-import { useNearAuth, addMessage } from "@/composables/near";
+import { wallet } from "@/services/near";
 
 export default {
+  props: {
+    // pass addMessage as a prop to Form
+    // Form and Messages are sybling components that share state (Form sets messages; Messages gets messages)
+    // since they share state, the state should be lifted to their parent component (Home)
+    addMessage: {
+      type: Function,
+      required: true,
+    },
+  },
   components: { BadgeCheckIcon },
-  setup() {
-    const { accountId } = useNearAuth();
+  setup(props) {
     const message = ref("");
     const donation = ref("0");
 
-    const onSubmit = (e) => {
-      addMessage(message, donation);
-      e.preventDefault();
+    const handleSubmit = () => {
+      props.addMessage({ text: message.value, donation: donation.value });
     };
 
     return {
       message,
       donation,
-      onSubmit,
-      accountId,
+      handleSubmit,
+      accountId: wallet.getAccountId(),
     };
   },
 };
