@@ -14,7 +14,7 @@ import Form from "@/components/Form";
 
 export default {
   components: { Messages, Form },
-  async setup() {
+  setup() {
     // use our custom hook to get (reactive) messages state
     // we get this state from the Home component because it is shared with both Form and Messages
     // lifting shared state to a parent component is the easiest way to have components share state.

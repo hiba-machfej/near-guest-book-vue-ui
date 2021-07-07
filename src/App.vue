@@ -1,15 +1,6 @@
 <template>
-  <Suspense>
-    <template #default>
-      <div>
-        <Navbar />
-        <Home />
-      </div>
-    </template>
-    <template #fallback>
-      <span>Loading...</span>
-    </template>
-  </Suspense>
+  <Navbar />
+  <Home />
 </template>
 
 <script>
@@ -38,6 +29,5 @@ export default {
   width: 90%;
   height: 100%;
   padding: 4rem;
-  /* background-color: theme("colors.near-red.DEFAULT"); */
 }
 </style>
