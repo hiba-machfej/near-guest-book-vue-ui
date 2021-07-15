@@ -8,6 +8,7 @@ import { getMessages, addMessage } from "../services/near";
 export const useMessages = () => {
   // messages starts as an empty array
   const messages = ref([]);
+  const isLoading = ref(false);
 
   // when the component first mounts get messages from the blockchain
   onMounted(async () => {
@@ -16,12 +17,20 @@ export const useMessages = () => {
 
   // create a function that allows adding a message to the blockchain
   const handleAddMessage = async ({ text, donation }) => {
-    await addMessage({ text, donation });
+    isLoading.value = true;
+
+    await addMessage({
+      text,
+      donation,
+    });
+
     messages.value = await getMessages();
+    isLoading.value = false;
   };
 
   return {
     messages,
     addMessage: handleAddMessage,
+    isLoading,
   };
 };
