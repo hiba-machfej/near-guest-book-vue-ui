@@ -3,7 +3,7 @@
     <div
       class="flex justify-start items-center bg-near-black text-near-white font-bold pr-3 rounded-full"
     >
-      <img class="w-12" src="@/assets/logo.svg" alt="logo" />
+      <img class="w-8 md:w-12" src="@/assets/logo.svg" alt="logo" />
       <p>GuestBook</p>
     </div>
 
@@ -23,13 +23,21 @@ export default {
   setup() {
     const accountId = wallet.getAccountId();
 
+    const signIn = () => {
+      if (accountId) {
+        wallet.signOut();
+        window.location.reload();
+      } else {
+        wallet.requestSignIn(CONTRACT_ID);
+      }
+    };
+
     return {
       accountId,
-      signIn: () => wallet.requestSignIn(CONTRACT_ID)
-    }
-  }
-}
-
+      signIn,
+    };
+  },
+};
 </script>
 
 <style></style>
