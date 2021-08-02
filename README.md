@@ -3,7 +3,7 @@
 Sign in with <a href="https://near.org/">NEAR</a> and add a message to the guest book! 
 <br>A starter app built with an AssemblyScript backend and a Vue frontend. This Frontend is created for learning purposes. 
  
-### Check out the smart contract <a href="https://github.com/near-examples/guest-book/tree/master/assembly">here</a>. 
+### Check out the smart contract <a href="https://github.com/near-examples/guest-book">here</a>. 
 The Guest Book smart contract is developed by the NEAR Team. 
 
 ### ⚠️ Warning
